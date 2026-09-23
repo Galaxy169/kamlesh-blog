@@ -1,5 +1,5 @@
 import { createClient } from 'next-sanity';
-import imageUrlBuilder from '@sanity/image-url';
+import { createImageUrlBuilder } from '@sanity/image-url';
 
 // Ensure these environment variables are set in your .env.local file
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -14,7 +14,7 @@ export const client = createClient({
 });
 
 // Helper function for generating Image URLs with only the asset reference data in your documents
-const builder = imageUrlBuilder(client);
+const builder = createImageUrlBuilder(client);
 
 export function urlFor(source) {
   return builder.image(source);
