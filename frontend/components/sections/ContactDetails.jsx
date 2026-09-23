@@ -3,7 +3,17 @@
 import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Clock, MessageCircle } from 'lucide-react';
 
-export default function ContactDetails() {
+export default function ContactDetails({ data }) {
+  const address = data?.address || "123 Business Avenue, Suite 400\nFinancial District, NY 10001";
+  const phone = data?.phone || "+1 (234) 567-890";
+  const email = data?.email || "contact@taxfirm.com";
+  const whatsappNumber = data?.whatsappNumber; // e.g., "1234567890"
+
+  // Format phone number for href (remove spaces and special characters except +)
+  const phoneHref = `tel:${phone.replace(/[^\d+]/g, '')}`;
+  // Format WhatsApp href
+  const whatsappHref = whatsappNumber ? `https://wa.me/${whatsappNumber.replace(/[^\d+]/g, '')}` : '#';
+
   return (
     <section id="contact" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,9 +55,8 @@ export default function ContactDetails() {
               </div>
               <div>
                 <h4 className="font-bold text-deep-navy mb-1">Visit Our Office</h4>
-                <p className="text-slate-600 text-sm">
-                  123 Business Avenue, Suite 400<br />
-                  Financial District, NY 10001
+                <p className="text-slate-600 text-sm whitespace-pre-line">
+                  {address}
                 </p>
               </div>
             </motion.div>
@@ -64,8 +73,8 @@ export default function ContactDetails() {
               </div>
               <div>
                 <h4 className="font-bold text-deep-navy mb-1">Call Us</h4>
-                <a href="tel:+1234567890" className="text-slate-600 text-sm hover:text-corporate-blue transition-colors block mb-1">
-                  +1 (234) 567-890
+                <a href={phoneHref} className="text-slate-600 text-sm hover:text-corporate-blue transition-colors block mb-1">
+                  {phone}
                 </a>
                 <p className="text-slate-500 text-xs">Mon-Fri, 9am - 6pm</p>
               </div>
@@ -83,8 +92,8 @@ export default function ContactDetails() {
               </div>
               <div>
                 <h4 className="font-bold text-deep-navy mb-1">Email Us</h4>
-                <a href="mailto:contact@taxfirm.com" className="text-slate-600 text-sm hover:text-corporate-blue transition-colors">
-                  contact@taxfirm.com
+                <a href={`mailto:${email}`} className="text-slate-600 text-sm hover:text-corporate-blue transition-colors">
+                  {email}
                 </a>
                 <p className="text-slate-500 text-xs mt-1">We typically reply within 24 hours</p>
               </div>
@@ -155,13 +164,17 @@ export default function ContactDetails() {
                 >
                   Send Message
                 </button>
-                <a 
-                  href="#"
-                  className="inline-flex items-center gap-2 text-slate-500 hover:text-green-600 font-medium px-4 py-3 transition-colors"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  WhatsApp Us
-                </a>
+                {whatsappNumber && (
+                  <a 
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-slate-500 hover:text-green-600 font-medium px-4 py-3 transition-colors"
+                  >
+                    <MessageCircle className="w-5 h-5" />
+                    WhatsApp Us
+                  </a>
+                )}
               </div>
             </form>
           </motion.div>

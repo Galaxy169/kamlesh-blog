@@ -3,7 +3,7 @@
 import { motion } from 'motion/react';
 import { ShieldCheck, XCircle } from 'lucide-react';
 
-const comparisons = [
+const fallbackComparisons = [
   {
     challenge: 'Generic, one-size-fits-all service',
     approach: 'Personalized assistance tailored to your specific situation'
@@ -26,7 +26,9 @@ const comparisons = [
   }
 ];
 
-export default function Comparison() {
+export default function Comparison({ data }) {
+  const comparisonsToDisplay = data && data.length > 0 ? data : fallbackComparisons;
+
   return (
     <section className="py-24 bg-deep-navy text-white relative overflow-hidden">
       {/* Decorative patterns */}
@@ -64,9 +66,9 @@ export default function Comparison() {
           </div>
 
           <div className="space-y-4">
-            {comparisons.map((item, index) => (
+            {comparisonsToDisplay.map((item, index) => (
               <motion.div
-                key={index}
+                key={item._id || index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
