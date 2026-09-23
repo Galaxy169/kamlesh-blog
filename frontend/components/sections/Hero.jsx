@@ -4,7 +4,11 @@ import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
 
-export default function Hero() {
+export default function Hero({ data }) {
+  const headline = data?.heroHeadline;
+  const description = data?.heroDescription || "We provide professional tax filing, accounting, and business compliance services. Let our experts handle the numbers while you focus on what matters most.";
+  const label = data?.heroLabel;
+
   return (
     <section className="relative bg-deep-navy overflow-hidden">
       {/* Background Decorative Elements */}
@@ -24,13 +28,25 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="max-w-2xl"
           >
+            {label && (
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-fresh-green text-sm font-medium mb-6 backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-fresh-green animate-pulse" />
+                {label}
+              </div>
+            )}
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-              Expert Financial Guidance for Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-fresh-green to-emerald-300">Peace of Mind</span>
-            </h1>
+            {headline ? (
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                {headline}
+              </h1>
+            ) : (
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                Expert Financial Guidance for Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-fresh-green to-emerald-300">Peace of Mind</span>
+              </h1>
+            )}
             
             <p className="text-lg text-slate-300 mb-8 leading-relaxed max-w-xl">
-              We provide professional tax filing, accounting, and business compliance services. Let our experts handle the numbers while you focus on what matters most.
+              {description}
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
