@@ -3,5 +3,6 @@ import service from './service'
 import workProcess from './workProcess'
 import coreValue from './coreValue'
 import differentiator from './differentiator'
+import siteSettings from './siteSettings'
 
-export const schemaTypes = [post, service, workProcess, coreValue, differentiator]
+export const schemaTypes = [post, service, workProcess, coreValue, differentiator, siteSettings]
