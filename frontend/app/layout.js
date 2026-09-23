@@ -18,7 +18,7 @@ export async function generateMetadata() {
   const title = settings?.siteName || "Tax & Financial Compliance Services";
   const description = settings?.siteDescription || "Professional tax filing, accounting, and financial compliance services for businesses and individuals.";
 
-  return {
+  const metadata = {
     title: {
       template: `%s | ${title}`,
       default: title,
@@ -42,13 +42,23 @@ export async function generateMetadata() {
       follow: true,
     }
   };
+
+  if (settings?.favicon) {
+    metadata.icons = {
+      icon: urlFor(settings.favicon).url()
+    };
+  }
+
+  return metadata;
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const settings = await client.fetch(siteSettingsQuery);
+
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased scroll-smooth`}>
       <body className="min-h-full flex flex-col font-sans">
-        <Navbar />
+        <Navbar data={settings} />
         <main className="flex-1">
           {children}
         </main>

@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import { urlFor } from '@/lib/sanity/client';
 
 export default function Hero({ data }) {
   const headline = data?.heroHeadline;
@@ -28,12 +30,12 @@ export default function Hero({ data }) {
             transition={{ duration: 0.6 }}
             className="max-w-2xl"
           >
-            {label && (
+            {/* {label && (
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-fresh-green text-sm font-medium mb-6 backdrop-blur-sm">
                 <span className="w-2 h-2 rounded-full bg-fresh-green animate-pulse" />
                 {label}
               </div>
-            )}
+            )} */}
             
             {headline ? (
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
@@ -72,37 +74,52 @@ export default function Hero({ data }) {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative lg:ml-auto hidden md:block"
+            className="relative lg:ml-auto hidden md:block mt-8 lg:mt-0"
           >
-            <div className="relative w-full max-w-lg aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-              <div className="absolute inset-0 bg-gradient-to-tr from-corporate-blue to-deep-navy opacity-80 z-10" />
-              {/* Fallback image if actual image is missing */}
-              <div className="w-full h-full object-cover bg-slate-800 flex items-center justify-center text-slate-500">
-                <svg className="w-32 h-32 opacity-20" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M2 3h20v18H2V3zm2 2v14h16V5H4zm4 4h8v2H8V9zm0 4h8v2H8v-2z" />
-                </svg>
-              </div>
+            <div className="relative w-full max-w-lg mx-auto aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
+              {/* Subtle gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-corporate-blue/40 to-deep-navy/40 z-10" />
               
-              {/* Overlapping floating card */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="absolute -bottom-6 -left-6 bg-white p-5 rounded-xl shadow-xl z-20 border border-gray-100 max-w-[240px]"
-              >
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="w-10 h-10 rounded-full bg-fresh-green/10 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-fresh-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="text-dark-slate font-bold text-sm">Expert Support</h4>
-                    <p className="text-xs text-gray-500">Always available</p>
-                  </div>
+              {/* Dynamic Hero Image or Fallback */}
+              {data?.heroImage ? (
+                <Image 
+                  src={urlFor(data.heroImage).url()} 
+                  alt={data?.heroImage?.alt || "Hero Image"} 
+                  fill
+                  className="object-cover w-full h-full"  
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-6 text-center">
+                  <svg className="w-16 h-16 opacity-30 mb-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M2 3h20v18H2V3zm2 2v14h16V5H4zm4 4h8v2H8V9zm0 4h8v2H8v-2z" />
+                  </svg>
+                  <p className="text-sm font-medium">Add a Hero Image in Sanity CMS</p>
+                  <p className="text-xs mt-2 opacity-60">This placeholder will be replaced.</p>
                 </div>
-              </motion.div>
+              )}
             </div>
+              
+            {/* Overlapping floating card (Moved OUTSIDE the overflow-hidden div so it doesn't get clipped) */}
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 1, duration: 0.5 }}
+              className="absolute -bottom-8 -left-8 bg-white p-5 rounded-xl shadow-xl z-20 border border-gray-100 min-w-[200px]"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-fresh-green/10 flex items-center justify-center shrink-0">
+                  <svg className="w-5 h-5 text-fresh-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-dark-slate font-bold text-sm">Expert Support</h4>
+                  <p className="text-xs text-gray-500">Always available</p>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
           
         </div>

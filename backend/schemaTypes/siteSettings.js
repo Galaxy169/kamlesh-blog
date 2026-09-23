@@ -19,6 +19,20 @@ export default defineType({
       rows: 2,
       group: 'branding',
     }),
+    defineField({
+      name: 'logo',
+      title: 'Site Logo',
+      type: 'image',
+      description: 'Used in the navigation bar and footer.',
+      group: 'branding',
+    }),
+    defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      type: 'image',
+      description: 'Small icon shown in browser tabs (recommended 32x32px).',
+      group: 'branding',
+    }),
     
     // --- HERO SECTION ---
     defineField({
@@ -39,6 +53,15 @@ export default defineType({
       title: 'Hero Description',
       type: 'text',
       rows: 3,
+      group: 'hero',
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image',
+      type: 'image',
+      options: {
+        hotspot: true, // Enables image cropping
+      },
       group: 'hero',
     }),
 
