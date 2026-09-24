@@ -52,7 +52,7 @@ const fallbackServices = [
 export default function Services({ data }) {
   // Use CMS data if available and not empty, otherwise fallback
   const servicesToDisplay = data && data.length > 0 ? data : fallbackServices;
-  console.log(data);
+
 
 
   return (

@@ -10,7 +10,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export async function generateMetadata() {
   const settings = await client.fetch(siteSettingsQuery);

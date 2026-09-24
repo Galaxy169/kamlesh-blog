@@ -36,7 +36,6 @@ const fallbackPosts = [
 
 export default function BlogSpotlight({ data }) {
   const postsToDisplay = data && data.length > 0 ? data : fallbackPosts;
-  console.log(data);
 
 
   return (

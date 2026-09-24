@@ -10,7 +10,7 @@ export default function Hero({ data }) {
   const headline = data?.heroHeadline;
   const description = data?.heroDescription || "We provide professional tax filing, accounting, and business compliance services. Let our experts handle the numbers while you focus on what matters most.";
   const label = data?.heroLabel;
-  console.log(data);
+
   
 
   return (

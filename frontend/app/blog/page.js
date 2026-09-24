@@ -9,7 +9,7 @@ export const metadata = {
   description: 'Read our latest articles on tax filing, accounting, business registration, and financial compliance.',
 };
 
-export const revalidate = 0;
+export const revalidate = 60;
 
 export default async function BlogPage() {
   // Fetch data directly on the server
