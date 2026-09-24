@@ -34,7 +34,7 @@ export default async function BlogPage() {
               <input 
                 type="text" 
                 placeholder="Search articles..."
-                className="w-full pl-12 pr-4 py-3 rounded-md text-deep-navy focus:outline-none focus:ring-2 focus:ring-fresh-green"
+                className="w-full pl-12 pr-4 py-3 rounded-md focus:outline-none ring-2 ring-blue-900 focus:ring-blue-800 transition-all"
               />
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5" />
             </div>
@@ -68,7 +68,8 @@ export default async function BlogPage() {
             const dateString = isNaN(dateObj.getTime()) ? 'Unknown Date' : dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
             return (
-              <div
+              <Link
+                href={`/blog/${post.slug || '#'}`}
                 key={post._id || index}
                 className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col h-full group"
               >
@@ -125,7 +126,7 @@ export default async function BlogPage() {
                     </Link>
                   </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

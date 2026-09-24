@@ -33,7 +33,7 @@ export default defineType({
       description: 'Small icon shown in browser tabs (recommended 32x32px).',
       group: 'branding',
     }),
-    
+
     // --- HERO SECTION ---
     defineField({
       name: 'heroLabel',
@@ -62,6 +62,13 @@ export default defineType({
       options: {
         hotspot: true, // Enables image cropping
       },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        }
+      ],
       group: 'hero',
     }),
 
@@ -92,6 +99,22 @@ export default defineType({
       title: 'Years of Experience',
       type: 'number',
       description: 'Number displayed in the floating badge on the About section.',
+      group: 'about',
+    }),
+    defineField({
+      name: 'aboutImage',
+      title: 'About Image',
+      type: 'image',
+      options: {
+        hotspot: true, // Enables image cropping
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        }
+      ],
       group: 'about',
     }),
 
@@ -129,9 +152,12 @@ export default defineType({
       title: 'Social Media Links',
       type: 'object',
       fields: [
-        { name: 'linkedin', type: 'url', title: 'LinkedIn URL' },
-        { name: 'twitter', type: 'url', title: 'Twitter URL' },
         { name: 'facebook', type: 'url', title: 'Facebook URL' },
+        { name: 'whatsapp', type: 'url', title: 'Whatsapp URL' },
+        { name: 'twitter', type: 'url', title: 'Twitter URL' },
+        { name: 'instagram', type: 'url', title: 'Instagram URL' },
+        { name: 'youtube', type: 'url', title: 'Youtube URL' },
+        { name: 'linkedin', type: 'url', title: 'LinkedIn URL' },
       ],
       group: 'social',
     }),

@@ -15,6 +15,7 @@ export const servicesQuery = groq`
     slug,
     shortDescription,
     iconName,
+    image,
     displayOrder
   }
 `;

@@ -6,7 +6,7 @@ import { MapPin, Phone, Mail, Clock, MessageCircle, Send, CheckCircle2, AlertCir
 
 export default function ContactDetails({ data }) {
   const address = data?.address || "123 Business Avenue, Suite 400\nFinancial District, NY 10001";
-  const phone = data?.phone || "+1 (234) 567-890";
+  const phone = data?.phoneNumber || "+1 (234) 567-890";
   const email = data?.email || "contact@taxfirm.com";
   const whatsappNumber = data?.whatsappNumber;
 
@@ -21,18 +21,18 @@ export default function ContactDetails({ data }) {
     event.preventDefault();
     setFormStatus('submitting');
     setErrorMessage('');
-    
+
     const formData = new FormData(event.target);
     // Append Web3Forms Access Key
     // Using environment variable for security, fallback to placeholder for dev
     const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
-    
-    if (!accessKey) {
-      console.warn("Web3Forms API key is missing. Add NEXT_PUBLIC_WEB3FORMS_KEY to .env.local.");
-      // Fake success for development if key is missing
-      setTimeout(() => setFormStatus('success'), 1500);
-      return;
-    }
+
+    // if (!accessKey) {
+    //   console.warn("Web3Forms API key is missing. Add NEXT_PUBLIC_WEB3FORMS_KEY to .env.local.");
+    //   // Fake success for development if key is missing
+    //   setTimeout(() => setFormStatus('success'), 1500);
+    //   return;
+    // }
 
     formData.append("access_key", accessKey);
     // Include a subject
@@ -52,10 +52,10 @@ export default function ContactDetails({ data }) {
       } else {
         console.error("Form Error", data);
         setFormStatus('error');
-        setErrorMessage(data.message || 'Something went wrong. Please try again.');
+        setErrorMessage('Something went wrong. Please try again.');
       }
     } catch (error) {
-      console.error("Submission Error", error);
+      console.error("Submission Error");
       setFormStatus('error');
       setErrorMessage('Network error occurred. Please check your connection and try again.');
     }
@@ -64,7 +64,7 @@ export default function ContactDetails({ data }) {
   return (
     <section id="contact" className="py-24 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <motion.div
@@ -86,7 +86,7 @@ export default function ContactDetails({ data }) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* Contact Cards */}
           <div className="lg:col-span-1 space-y-6">
             <motion.div
@@ -155,7 +155,7 @@ export default function ContactDetails({ data }) {
             className="lg:col-span-2 bg-white rounded-xl shadow-xl shadow-slate-200/50 border border-gray-100 p-8 md:p-10"
           >
             <h4 className="text-2xl font-bold text-deep-navy mb-6">Send us a message</h4>
-            
+
             <form className="space-y-6" onSubmit={handleSubmit}>
               {/* Spam Protection Honeypot */}
               <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
@@ -163,34 +163,34 @@ export default function ContactDetails({ data }) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-slate-700 mb-2">Full Name</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     id="name"
                     name="name"
                     required
                     className="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-corporate-blue focus:border-corporate-blue transition-colors outline-none"
-                    placeholder="John Doe"
+                    placeholder="Raj Kumar"
                     disabled={formStatus === 'submitting'}
                   />
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">Email Address</label>
-                  <input 
-                    type="email" 
-                    id="email" 
+                  <input
+                    type="email"
+                    id="email"
                     name="email"
                     required
                     className="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-corporate-blue focus:border-corporate-blue transition-colors outline-none"
-                    placeholder="john@example.com"
+                    placeholder="email@example.com"
                     disabled={formStatus === 'submitting'}
                   />
                 </div>
               </div>
-              
+
               <div>
                 <label htmlFor="service" className="block text-sm font-medium text-slate-700 mb-2">Service Required</label>
-                <select 
-                  id="service" 
+                <select
+                  id="service"
                   name="service"
                   className="w-full px-4 py-3 rounded-md border border-slate-300 focus:ring-2 focus:ring-corporate-blue focus:border-corporate-blue transition-colors outline-none bg-white"
                   disabled={formStatus === 'submitting'}
@@ -206,7 +206,7 @@ export default function ContactDetails({ data }) {
 
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-slate-700 mb-2">Your Message</label>
-                <textarea 
+                <textarea
                   id="message"
                   name="message"
                   required
@@ -226,7 +226,7 @@ export default function ContactDetails({ data }) {
                   </p>
                 </div>
               )}
-              
+
               {formStatus === 'error' && (
                 <div className="p-4 bg-red-50 border border-red-200 rounded-md flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
@@ -237,7 +237,7 @@ export default function ContactDetails({ data }) {
               )}
 
               <div className="flex items-center gap-4">
-                <button 
+                <button
                   type="submit"
                   disabled={formStatus === 'submitting'}
                   className="bg-fresh-green hover:bg-emerald-600 text-white font-medium px-8 py-3.5 rounded-md transition-colors shadow-md shadow-emerald-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center min-w-[160px]"
@@ -251,14 +251,14 @@ export default function ContactDetails({ data }) {
                       Sending...
                     </span>
                   ) : (
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 cursor-pointer">
                       Send Message
                       <Send className="w-4 h-4" />
                     </span>
                   )}
                 </button>
                 {whatsappNumber && (
-                  <a 
+                  <a
                     href={whatsappHref}
                     target="_blank"
                     rel="noopener noreferrer"

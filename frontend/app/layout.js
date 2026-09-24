@@ -62,7 +62,7 @@ export default async function RootLayout({ children }) {
         <main className="flex-1">
           {children}
         </main>
-        <Footer />
+        <Footer data={settings} />
       </body>
     </html>
   );

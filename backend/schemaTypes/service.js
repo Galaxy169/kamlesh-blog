@@ -42,6 +42,19 @@ export default defineType({
       description: 'Name of the Lucide icon to use (e.g., FileText, Briefcase, Calculator)',
     }),
     defineField({
+      name: 'image',
+      title: 'Service Image',
+      type: 'image',
+      description: 'Upload service image here',
+            fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+        }
+      ]
+    }),
+    defineField({
       name: 'displayOrder',
       title: 'Display Order',
       type: 'number',

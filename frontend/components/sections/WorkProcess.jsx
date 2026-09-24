@@ -46,7 +46,7 @@ export default function WorkProcess({ data }) {
       <div className="absolute top-0 right-0 w-64 h-64 bg-light-blue rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl opacity-50" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-fresh-green/5 rounded-full translate-y-1/3 -translate-x-1/3 blur-3xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 cursor-pointer">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
@@ -73,7 +73,7 @@ export default function WorkProcess({ data }) {
           {/* Connecting Line (Desktop) */}
           <div className="hidden lg:block absolute top-12 left-0 right-0 h-0.5 bg-gradient-to-r from-light-blue via-corporate-blue/20 to-light-blue z-0" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${stepsToDisplay.length} gap-8 lg:gap-4`}>
             {stepsToDisplay.map((step, index) => {
               const IconComponent = LucideIcons[step.iconName] || LucideIcons.CheckCircle;
               

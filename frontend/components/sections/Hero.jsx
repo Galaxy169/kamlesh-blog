@@ -10,6 +10,8 @@ export default function Hero({ data }) {
   const headline = data?.heroHeadline;
   const description = data?.heroDescription || "We provide professional tax filing, accounting, and business compliance services. Let our experts handle the numbers while you focus on what matters most.";
   const label = data?.heroLabel;
+  console.log(data);
+  
 
   return (
     <section className="relative bg-deep-navy overflow-hidden">
@@ -54,7 +56,7 @@ export default function Hero({ data }) {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 href="/#services"
-                className="inline-flex justify-center items-center gap-2 bg-fresh-green hover:bg-emerald-600 text-white px-8 py-3.5 rounded-md font-medium transition-all shadow-lg shadow-emerald-500/30 group"
+                className="inline-flex justify-center items-center gap-2 bg-fresh-green hover:bg-emerald-600  text-white px-8 py-3.5 rounded-md font-medium transition-all shadow-lg shadow-emerald-500/30 group"
               >
                 Explore Our Services
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -62,7 +64,7 @@ export default function Hero({ data }) {
               
               <Link
                 href="/#contact"
-                className="inline-flex justify-center items-center gap-2 bg-transparent hover:bg-white/5 text-white border border-white/30 px-8 py-3.5 rounded-md font-medium transition-all"
+                className="inline-flex justify-center items-center gap-2 bg-transparent hover:bg-white/5 hover:ring-2 hover:ring-blue-800/60 text-white border border-white/30 px-8 py-3.5 rounded-md font-medium transition-all"
               >
                 Contact Us
               </Link>
@@ -76,7 +78,7 @@ export default function Hero({ data }) {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative lg:ml-auto hidden md:block mt-8 lg:mt-0"
           >
-            <div className="relative w-full max-w-lg mx-auto aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
+            <div className="relative w-full max-w-2xl mx-auto aspect-square lg:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-slate-800">
               {/* Subtle gradient overlay */}
               <div className="absolute inset-0 bg-gradient-to-tr from-corporate-blue/40 to-deep-navy/40 z-10" />
               
@@ -85,9 +87,10 @@ export default function Hero({ data }) {
                 <Image 
                   src={urlFor(data.heroImage).url()} 
                   alt={data?.heroImage?.alt || "Hero Image"} 
-                  fill
+                  width={1024}
+                  height={683}
                   className="object-cover w-full h-full"  
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  sizes="(max-width: 1024px) 100vw, 80vw"
                   priority
                 />
               ) : (
@@ -106,7 +109,7 @@ export default function Hero({ data }) {
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 1, duration: 0.5 }}
-              className="absolute -bottom-8 -left-8 bg-white p-5 rounded-xl shadow-xl z-20 border border-gray-100 min-w-[200px]"
+              className="absolute -bottom-8 -right-8 bg-white p-5 rounded-xl shadow-xl z-20 border border-gray-100 min-w-[200px]"
             >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-fresh-green/10 flex items-center justify-center shrink-0">
