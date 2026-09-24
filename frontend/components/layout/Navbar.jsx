@@ -2,37 +2,55 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { BookText, BuildingComplex, HomeIcon, Menu, Rss, UserStar, X } from 'lucide-react';
+import { BookText, BuildingComplex, Contact, HomeIcon, Menu, Rss, UserStar, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+import Image from 'next/image';
+import { urlFor } from '@/lib/sanity/client';
 
 const navLinks = [
   { name: 'Home', icon: <HomeIcon />, href: '/' },
-  { name: 'About Us', icon: <BookText />, href: '/#about' },
   { name: 'Our Services', icon: <BuildingComplex />, href: '/#services' },
   { name: 'Client Process', icon: <UserStar />, href: '/#process' },
+  { name: 'About Us', icon: <BookText />, href: '/#about' },
   { name: 'Blog', icon: <Rss />, href: '/blog' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ data }) {
   const [isOpen, setIsOpen] = useState(false);
+  const siteName = data?.siteName || "TaxFirm";
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-[#EAF2F8] backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-[#eaf2f8e7] backdrop-blur-md border-b border-gray-100 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-corporate-blue rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                T
-              </div>
-              <span className="font-bold text-xl text-deep-navy tracking-tight">
-                Tax<span className="text-corporate-blue">Firm</span>
-              </span>
+              {data?.logo ? (
+                <div className="relative h-10 w-auto min-w-[40px] flex items-center">
+                  <Image 
+                    src={urlFor(data.logo).url()} 
+                    alt={`${siteName} Logo`}
+                    width={150}
+                    height={40}
+                    className="object-contain max-h-10 w-auto"
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="w-10 h-10 bg-corporate-blue rounded-lg flex items-center justify-center text-white font-bold text-xl">
+                    {siteName.charAt(0)}
+                  </div>
+                  <span className="font-bold text-xl text-deep-navy tracking-tight">
+                    {siteName}
+                  </span>
+                </>
+              )}
             </Link>
           </div>
 
@@ -45,8 +63,8 @@ export default function Navbar() {
                 className="text-dark-slate hover:text-corporate-blue font-medium text-sm transition-colors duration-200"
               >
                 <div className='flex items-center gap-2'>
-                {link.icon}
-                {link.name}
+                  {link.icon}
+                  {link.name}
                 </div>
               </Link>
             ))}
@@ -54,7 +72,11 @@ export default function Navbar() {
               href="/#contact"
               className="bg-fresh-green hover:bg-emerald-600 text-white px-5 py-2.5 rounded-md font-medium text-sm transition-colors duration-300 shadow-sm shadow-emerald-200"
             >
-              Contact Us
+              <div className='flex items-center gap-2'>
+                <Contact />
+                Contact Us
+              </div>
+
             </Link>
           </div>
 
